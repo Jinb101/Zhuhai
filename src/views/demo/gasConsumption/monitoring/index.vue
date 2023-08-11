@@ -59,7 +59,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref } from 'vue';
+  import { onMounted, reactive, ref } from 'vue';
+  import { listGasApi } from '/@/api/demo/gasConsumption';
 
   // do not use same name with ref
   const form = reactive({
@@ -104,6 +105,11 @@
   const deleteRow = (index: number) => {
     tableData.value.splice(index, 1);
   };
+  onMounted(() => {
+    listGasApi(1, 10).then((res) => {
+      console.log(res);
+    });
+  });
 </script>
 
 <style scoped>

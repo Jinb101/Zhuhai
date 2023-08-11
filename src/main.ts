@@ -14,9 +14,10 @@ import { setupStore } from '/@/store';
 import { setupGlobDirectives } from '/@/directives';
 import { setupI18n } from '/@/locales/setupI18n';
 import { registerGlobComp } from '/@/components/registerGlobComp';
-import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
-
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
+// import { DatePicker } from 'ant-design-vue';
+// import 'ant-design-vue/dist/antd.css'; // or 'ant-design-vue/dist/antd.less'
 // Importing on demand in local development will increase the number of browser requests by around 20%.
 // This may slow down the browser refresh speed.
 // Therefore, only enable on-demand importing in production environments .
@@ -54,7 +55,7 @@ async function bootstrap() {
 
   // https://next.router.vuejs.org/api/#isready
   // await router.isReady();
-  app.use(ElementPlus);
+  app.use(Antd);
   app.mount('#app');
 }
 

@@ -208,7 +208,7 @@
           areaStyle: {
             //区域填充样式
             normal: {
-              color:'#adebf155',
+              color: '#adebf155',
               shadowColor: 'rgba(53,142,215, 0.9)', //阴影颜色
               shadowBlur: 20, //shadowBlur设图形阴影的模糊大小。配合shadowColor,shadowOffsetX/Y, 设置图形的阴影效果。
             },

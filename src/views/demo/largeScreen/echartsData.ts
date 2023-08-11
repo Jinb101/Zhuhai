@@ -1,5 +1,3 @@
-import * as echarts from 'echarts';
-
 // 实时数据
 export const realTimeData = {
   option: {
@@ -11,10 +9,8 @@ export const realTimeData = {
     },
     legend: {
       data: ['天然气', '压缩空气', '氧气', '氦气', '二氧化碳'],
-      textStyle: {
-        color: '#fff',
-        fontSize: '.7rem', // 初始字体大小，在 responsive 中会自动缩放
-      },
+      color: '#fff',
+      fontSize: '.7rem', // 初始字体大小，在 responsive 中会自动缩放
       top: '15%',
     },
     grid: {
@@ -113,9 +109,7 @@ export const naturalGasData = {
       bottom: 35,
       left: 40,
       right: 10,
-      textStyle: {
-        color: '#fff',
-      },
+      color: '#fff',
     },
     xAxis: [
       {
@@ -133,11 +127,9 @@ export const naturalGasData = {
         },
         axisLabel: {
           inside: false,
-          textStyle: {
-            color: '#bac0c0',
-            fontWeight: 'normal',
-            fontSize: '12',
-          },
+          color: '#bac0c0',
+          // fontWeight: 'normal',
+          fontSize: '12',
           // formatter:function(val){
           //     return val.split("").join("\n")
           // },
@@ -183,38 +175,15 @@ export const naturalGasData = {
         },
       },
       axisLabel: {
-        textStyle: {
-          color: '#bac0c0',
-          fontWeight: 'normal',
-          fontSize: '12',
-        },
+        color: '#bac0c0',
+        // fontWeight: 'normal',
+        fontSize: '12',
         formatter: '{value}',
       },
     },
     series: [
       {
         type: 'bar',
-        itemStyle: {
-          normal: {
-            show: true,
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              {
-                offset: 0,
-                color: '#00c0e9',
-              },
-              {
-                offset: 1,
-                color: '#3b73cf',
-              },
-            ]),
-            barBorderRadius: 50,
-            borderWidth: 0,
-          },
-          emphasis: {
-            shadowBlur: 15,
-            shadowColor: 'rgba(105,123, 214, 0.7)',
-          },
-        },
         zlevel: 2,
         barWidth: '20%',
         data: [23, 22, 20, 30, 22],
@@ -224,18 +193,6 @@ export const naturalGasData = {
         type: 'bar',
         xAxisIndex: 1,
         zlevel: 1,
-        itemStyle: {
-          normal: {
-            color: 'transparent',
-            borderWidth: 0,
-            shadowBlur: {
-              shadowColor: 'rgba(255,255,255,0.31)',
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowOffsetY: 2,
-            },
-          },
-        },
         barWidth: '20%',
         data: [23, 22, 20, 30, 22],
       },
@@ -275,11 +232,9 @@ export const breathData = {
         },
         axisLabel: {
           inside: false,
-          textStyle: {
-            color: '#bac0c0',
-            fontWeight: 'normal',
-            fontSize: '12',
-          },
+          color: '#bac0c0',
+          // fontWeight: 'normal',
+          fontSize: '12',
           // formatter:function(val){
           //     return val.split("").join("\n")
           // },
@@ -346,9 +301,9 @@ export const givealarmData = {
         center: ['50%', '60%'],
         color: ['#e72325', '#98e002', '#2ca3fd'],
         label: {
-          normal: {
-            formatter: '{b}\n{d}%',
-          },
+          // normal: {
+          //   formatter: '{b}\n{d}%',
+          // },
         },
         data: [
           {

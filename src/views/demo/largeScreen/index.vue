@@ -83,9 +83,17 @@
         </div>
       </div>
     </div>
-    <el-dialog v-model="open" class="w-full">
+
+    <a-modal
+      v-model:visible="open"
+      width="80%"
+      wrapClassName="full-modal"
+      :destroyOnClose="true"
+      :closable="false"
+      :footer="null"
+    >
       <MapModolNode />
-    </el-dialog>
+    </a-modal>
   </div>
 </template>
 
@@ -126,10 +134,6 @@
 
   const openModol = () => {
     open.value = true;
-    nextTick(() => {
-      document.body.style.width = '';
-      document.body.classList.remove('el-popup-parent--hidden');
-    });
   };
 
   onMounted(() => {
@@ -201,19 +205,5 @@
 
   .text_gradient {
     background: linear-gradient(to right, #001a60c0, transparent);
-  }
-  ::v-deep .el-dialog {
-    border-radius: 12px;
-    max-height: 70%;
-    background-image: url('../../../assets/images/large/bg.png') !important;
-    background-size: 100% 100% !important;
-    background-size: cover; /* 背景图片覆盖整个元素 */
-    background-repeat: no-repeat; /* 背景图片不重复 */
-  }
-  .el-popup-parent--hidden {
-    width: 100% !important;
-  }
-  body.el-popup-parent--hidden {
-    width: auto !important;
   }
 </style>
