@@ -1,15 +1,15 @@
 // 实时数据
 export const realTimeData = {
   option: {
-    title: {
-      text: '',
-    },
     tooltip: {
       trigger: 'axis',
     },
     legend: {
+      textStyle: {
+        color: '#fff',
+      },
       data: ['天然气', '压缩空气', '氧气', '氦气', '二氧化碳'],
-      color: '#fff',
+
       fontSize: '.7rem', // 初始字体大小，在 responsive 中会自动缩放
       top: '15%',
     },
@@ -29,9 +29,6 @@ export const realTimeData = {
         lineStyle: {
           color: '#fff',
         },
-      },
-      axisLabel: {
-        interval: 0,
       },
     },
     yAxis: {
