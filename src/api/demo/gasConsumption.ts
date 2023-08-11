@@ -1,7 +1,7 @@
 // import { defHttp } from '/@/utils/http/axios';
 
 // enum Api {
-//   // 气站到货验收管理
+//   // 气体消耗监测
 
 // }
 

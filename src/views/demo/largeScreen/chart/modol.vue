@@ -56,7 +56,7 @@
           });
 
           lod.value = false;
-          const light = new THREE.DirectionalLight(0xffffff, 20); // 增加强度值
+          const light = new THREE.DirectionalLight(0xffffff, 30); // 增加强度值
           light.position.set(0, 1, 0);
           light.color.setHex(0xffffff); // 设置为白色
           fbxModel.scale.set(1, 1, 1);
