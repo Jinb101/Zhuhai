@@ -325,7 +325,6 @@
   };
 
   const addItem = () => {
-    // console.log('submit!', toRaw(newFormState));
     newFrom.value
       ?.validate()
       .then(() => {
