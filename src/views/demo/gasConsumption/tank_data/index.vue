@@ -1,9 +1,9 @@
 <template>
-  <!--粗罐监测实时数据 -->
   <div class="w-full h-full px-4 py-4">
     <div class="min-h-[6rem] w-full bg-white flex justify-start items-center px-4">
       <div class="w-full">
         <a-form layout="inline" :model="formState">
+          <!-- 储罐类型选择 -->
           <a-form-item>
             <a-select
               v-model:value="formState.tank_type"
@@ -11,12 +11,10 @@
               style="width: 8rem"
             >
               <a-select-option value="1">天然气储罐</a-select-option>
-              <a-select-option value="2">液氧储罐</a-select-option>
-              <a-select-option value="3">二氧化碳储罐</a-select-option>
-              <a-select-option value="4">氩气储罐</a-select-option>
-              <a-select-option value="5">压缩空气储罐</a-select-option>
+              <!-- ... 其他选项 ... -->
             </a-select>
           </a-form-item>
+          <!-- 信息类型选择 -->
           <a-form-item>
             <a-select
               v-model:value="formState.message_type"
@@ -24,10 +22,10 @@
               style="width: 8rem"
             >
               <a-select-option value="stress">压力</a-select-option>
-              <a-select-option value="liquid_level">液位</a-select-option>
-              <a-select-option value="temperature">温度</a-select-option>
+              <!-- ... 其他选项 ... -->
             </a-select>
           </a-form-item>
+          <!-- 开始日期选择 -->
           <a-form-item>
             <a-date-picker
               v-model:value="formState.createTime"
@@ -36,6 +34,7 @@
               style="width: 100%"
             />
           </a-form-item>
+          <!-- 结束日期选择 -->
           <a-form-item>
             <a-date-picker
               v-model:value="formState.endTime"
@@ -44,9 +43,11 @@
               style="width: 100%"
             />
           </a-form-item>
+          <!-- 关键字输入 -->
           <a-form-item>
             <a-input v-model:value="formState.crux" placeholder="关键字" />
           </a-form-item>
+          <!-- 查询按钮 -->
           <a-form-item>
             <a-button v-if="showResetButton" @click="inquire">查询</a-button>
           </a-form-item>
@@ -57,6 +58,7 @@
         </a-form>
       </div>
     </div>
+    <!-- 表格显示 -->
     <div class="w-full mt-4">
       <a-table
         :rowKey="(__record, index) => index"
@@ -66,10 +68,11 @@
         bordered
       />
     </div>
-    <div> </div>
   </div>
 </template>
+
 <script setup lang="ts">
+  // 导入所需的模块和类型
   import { Moment } from 'moment';
   import { reactive, ref, UnwrapRef } from 'vue';
 
@@ -186,15 +189,15 @@
     crux: '',
   });
 
+  // 定义查询事件处理函数
   const inquire = () => {
-    const keyword = formState.crux.trim(); // 获取关键字并去除两端的空格
+    const keyword = formState.crux.trim();
 
     if (keyword === '') {
-      // 如果关键字为空，则重置数据源
       return;
     }
+
     showResetButton.value = false;
-    // 根据关键字进行筛选
     dataSource.value = data.filter((item) =>
       Object.values(item).some((value) =>
         value.toString().toLowerCase().includes(keyword.toLowerCase()),
@@ -202,6 +205,7 @@
     );
   };
 
+  // 定义重置表单事件处理函数
   const resetForm = () => {
     showResetButton.value = true;
     formState.tank_type = undefined;

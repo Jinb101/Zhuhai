@@ -50,7 +50,7 @@
     </div>
     <div class="w-full mt-4">
       <a-table
-        :rowKey="(__record, index) => index"
+        :rowKey="(__record, _index) => __record.pointNumber"
         class="h-full w-full"
         :columns="columns"
         :data-source="dataSource"
