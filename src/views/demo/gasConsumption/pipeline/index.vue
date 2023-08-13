@@ -26,7 +26,13 @@
       </div>
     </div>
     <div class="w-full mt-4">
-      <a-table class="h-full w-full" :columns="columns" :data-source="dataSource" bordered />
+      <a-table
+        :rowKey="(__record, index) => index"
+        class="h-full w-full"
+        :columns="columns"
+        :data-source="dataSource"
+        bordered
+      />
     </div>
   </div>
 </template>
@@ -35,6 +41,9 @@
 
   interface DataItem {
     idr?: string;
+    gas?: string;
+    car_bon?: string;
+    breath?: string;
     pathName: string;
     gas_appearance: string;
     gas_rate: string;
@@ -54,6 +63,7 @@
     {
       title: '区域名称',
       dataIndex: 'pathName',
+      key: 'pathName',
       align: 'center',
       width: '10%',
       slots: { customRender: 'pathName' },
@@ -61,6 +71,7 @@
     {
       title: '天然气',
       dataIndex: 'gas',
+      key: 'gas',
       align: 'center',
       width: '20%',
       slots: { customRender: 'gas' },
@@ -84,6 +95,7 @@
     {
       title: '二氧化碳',
       dataIndex: 'car_bon',
+      key: 'car_bon',
       align: 'center',
       width: '20%',
       slots: { customRender: 'car_bon' },
@@ -108,6 +120,7 @@
       title: '氧气',
       dataIndex: 'breath',
       align: 'center',
+      key: 'breath',
       width: '20%',
       slots: { customRender: 'breath' },
       children: [
@@ -131,6 +144,7 @@
       title: '压缩空气',
       dataIndex: 'compress',
       align: 'center',
+      key: 'compress',
       width: '10%',
       slots: { customRender: 'compress' },
     },
@@ -138,6 +152,7 @@
       title: '氩气',
       dataIndex: 'argon',
       align: 'center',
+      key: 'argon',
       width: '10%',
       slots: { customRender: 'argon' },
     },

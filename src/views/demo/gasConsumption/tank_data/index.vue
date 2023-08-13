@@ -1,7 +1,222 @@
 <template>
-  <div class=""></div>
+  <!--粗罐监测实时数据 -->
+  <div class="w-full h-full px-4 py-4">
+    <div class="min-h-[6rem] w-full bg-white flex justify-start items-center px-4">
+      <div class="w-full">
+        <a-form layout="inline" :model="formState">
+          <a-form-item>
+            <a-select
+              v-model:value="formState.tank_type"
+              placeholder="储罐类型"
+              style="width: 8rem"
+            >
+              <a-select-option value="1">天然气储罐</a-select-option>
+              <a-select-option value="2">液氧储罐</a-select-option>
+              <a-select-option value="3">二氧化碳储罐</a-select-option>
+              <a-select-option value="4">氩气储罐</a-select-option>
+              <a-select-option value="5">压缩空气储罐</a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item>
+            <a-select
+              v-model:value="formState.message_type"
+              placeholder="信息类型"
+              style="width: 8rem"
+            >
+              <a-select-option value="stress">压力</a-select-option>
+              <a-select-option value="liquid_level">液位</a-select-option>
+              <a-select-option value="temperature">温度</a-select-option>
+            </a-select>
+          </a-form-item>
+          <a-form-item>
+            <a-date-picker
+              v-model:value="formState.createTime"
+              type="date"
+              placeholder="开始日期"
+              style="width: 100%"
+            />
+          </a-form-item>
+          <a-form-item>
+            <a-date-picker
+              v-model:value="formState.endTime"
+              type="date"
+              placeholder="结束日期"
+              style="width: 100%"
+            />
+          </a-form-item>
+          <a-form-item>
+            <a-input v-model:value="formState.crux" placeholder="关键字" />
+          </a-form-item>
+          <a-form-item>
+            <a-button v-if="showResetButton" @click="inquire">查询</a-button>
+          </a-form-item>
+          <!-- 重置按钮 -->
+          <a-form-item>
+            <a-button @click="resetForm" v-show="!showResetButton">重置</a-button>
+          </a-form-item>
+        </a-form>
+      </div>
+    </div>
+    <div class="w-full mt-4">
+      <a-table
+        :rowKey="(__record, index) => index"
+        class="h-full w-full"
+        :columns="columns"
+        :data-source="dataSource"
+        bordered
+      />
+    </div>
+    <div> </div>
+  </div>
 </template>
+<script setup lang="ts">
+  import { Moment } from 'moment';
+  import { reactive, ref, UnwrapRef } from 'vue';
 
-<script setup></script>
+  interface DataItem {
+    positionPath: string;
+    installationPosition: string;
+    tankType: string;
+    mesType: string;
+    instantaneousFlow: number;
+    tankTime: string;
+    alarmState: string;
+    upperLimit: number;
+    floor: number;
+    pointNumber: string | number;
+  }
+  interface FormState {
+    tank_type: string | undefined;
+    message_type: string | undefined;
+    createTime: Moment | undefined;
+    endTime: Moment | undefined;
+    crux: string;
+  }
 
-<style scoped></style>
+  const columns = [
+    {
+      title: '点位名称',
+      dataIndex: 'positionPath',
+      align: 'center',
+      slots: { customRender: 'positionPath' },
+    },
+    {
+      title: '安装位置',
+      dataIndex: 'installationPosition',
+      align: 'center',
+      slots: { customRender: 'installationPosition' },
+    },
+    {
+      title: '储罐类型',
+      dataIndex: 'tankType',
+      slots: { customRender: 'tankType' },
+      align: 'center',
+    },
+    {
+      title: '信息类型',
+      dataIndex: 'mesType',
+      slots: { customRender: 'mesType' },
+      align: 'center',
+    },
+    {
+      title: '采集值',
+      dataIndex: 'instantaneousFlow',
+      align: 'center',
+      slots: { customRender: 'instantaneousFlow' },
+    },
+    {
+      title: '时间',
+      dataIndex: 'tankTime',
+      align: 'center',
+      width: '10%',
+      slots: { customRender: 'tankTime' },
+    },
+    {
+      title: '报警状态',
+      dataIndex: 'alarmState',
+      align: 'center',
+      slots: { customRender: 'alarmState' },
+    },
+    {
+      title: '上限',
+      align: 'center',
+      dataIndex: 'upperLimit',
+      slots: { customRender: 'upperLimit' },
+    },
+    {
+      title: '下限',
+      align: 'center',
+      dataIndex: 'floor',
+      slots: { customRender: 'floor' },
+    },
+    {
+      title: '点位编号',
+      align: 'center',
+      width: '20%',
+      dataIndex: 'pointNumber',
+      slots: { customRender: 'pointNumber' },
+    },
+  ];
+
+  const data: DataItem[] = [];
+  for (let i = 0; i < 100; i++) {
+    data.push({
+      positionPath: `点1`,
+      installationPosition: `空化站北`,
+      tankType: '天然气',
+      mesType: '液位',
+      instantaneousFlow: 51.3,
+      tankTime: '2023-03-08 20:33',
+      alarmState: `正常`,
+      upperLimit: 30,
+      floor: 44,
+      pointNumber: Math.random().toString(36).substr(2, 7) + ` ${i}`,
+    });
+  }
+
+  const dataSource = ref(data);
+  const showResetButton = ref<boolean>(true);
+
+  // form
+  const formState: UnwrapRef<FormState> = reactive({
+    tank_type: '储罐类型',
+    message_type: '',
+    createTime: undefined,
+    endTime: undefined,
+    crux: '',
+  });
+
+  const inquire = () => {
+    const keyword = formState.crux.trim(); // 获取关键字并去除两端的空格
+
+    if (keyword === '') {
+      // 如果关键字为空，则重置数据源
+      return;
+    }
+    showResetButton.value = false;
+    // 根据关键字进行筛选
+    dataSource.value = data.filter((item) =>
+      Object.values(item).some((value) =>
+        value.toString().toLowerCase().includes(keyword.toLowerCase()),
+      ),
+    );
+  };
+
+  const resetForm = () => {
+    showResetButton.value = true;
+    formState.tank_type = undefined;
+    formState.createTime = undefined;
+    formState.endTime = undefined;
+    formState.crux = '';
+    dataSource.value = data;
+  };
+</script>
+<style scoped>
+  .ant-table-tbody > tr > td {
+    height: auto !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+</style>

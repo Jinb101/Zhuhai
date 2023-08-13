@@ -44,7 +44,13 @@
       </div>
     </div>
     <div class="w-full mt-4">
-      <a-table class="h-full w-full" :columns="columns" :data-source="dataSource" bordered>
+      <a-table
+        :rowKey="(__record, index) => index"
+        class="h-full w-full"
+        :columns="columns"
+        :data-source="dataSource"
+        bordered
+      >
         <template
           v-for="col in ['name', 'calss', 'workshop', 'table', 'path', 'onobj', 'supply']"
           #[col]="{ text, record }"
