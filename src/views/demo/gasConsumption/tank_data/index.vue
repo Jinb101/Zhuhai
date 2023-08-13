@@ -78,7 +78,7 @@
 
   interface DataItem {
     positionPath: string;
-    installationPosition: string;
+    inPath: string;
     tankType: string;
     mesType: string;
     instantaneousFlow: number;
@@ -105,9 +105,9 @@
     },
     {
       title: '安装位置',
-      dataIndex: 'installationPosition',
+      dataIndex: 'inPath',
       align: 'center',
-      slots: { customRender: 'installationPosition' },
+      slots: { customRender: 'inPath' },
     },
     {
       title: '储罐类型',
@@ -165,7 +165,7 @@
   for (let i = 0; i < 100; i++) {
     data.push({
       positionPath: `点1`,
-      installationPosition: `空化站北`,
+      inPath: `空化站北`,
       tankType: '天然气',
       mesType: '液位',
       instantaneousFlow: 51.3,

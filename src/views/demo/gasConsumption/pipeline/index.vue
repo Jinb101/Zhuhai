@@ -37,14 +37,14 @@
 
   interface DataItem {
     pathName: string;
-    gas_appearance: string;
-    gas_rate: string;
-    car_bon_appearance: string;
-    car_bon_rate: string;
-    breath_appearance: string;
-    breath_rate: string;
-    compress: string;
-    argon: string;
+    gas_appearance: number;
+    gas_rate: number;
+    car_bon_appearance: number;
+    car_bon_rate: number;
+    breath_appearance: number;
+    breath_rate: number;
+    compress: number;
+    argon: number;
   }
   interface FormState {
     region: string | undefined;
@@ -152,9 +152,19 @@
 
   const data: DataItem[] = [];
 
-  // for (let i = 0; i < 100; i++) {
-  //   data.push({});
-  // }
+  for (let i = 0; i < 100; i++) {
+    data.push({
+      pathName: '切割车间',
+      gas_appearance: 2,
+      gas_rate: 36.5,
+      car_bon_appearance: 3,
+      car_bon_rate: 36.5,
+      breath_appearance: 3,
+      breath_rate: 36.5,
+      compress: 40,
+      argon: 70,
+    });
+  }
 
   const dataSource = ref(data);
   const showResetButton = ref<boolean>(true);
@@ -197,7 +207,6 @@
   .editable-row-operations a {
     margin-right: 8px;
   }
-
   .ant-table-tbody > tr > td {
     height: auto !important;
     white-space: nowrap;

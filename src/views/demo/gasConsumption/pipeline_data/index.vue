@@ -66,7 +66,7 @@
 
   interface DataItem {
     positionPath: string;
-    InstallationPosition: string;
+    inPath: string;
     localArea: string;
     gasType: string;
     InstantaneousFlow: number;
@@ -93,9 +93,9 @@
     },
     {
       title: '安装位置',
-      dataIndex: 'installationPosition',
+      dataIndex: 'inPath',
       align: 'center',
-      slots: { customRender: 'InstallationPosition' },
+      slots: { customRender: 'inPath' },
     },
     {
       title: '所在区域',
@@ -153,7 +153,7 @@
   for (let i = 0; i < 100; i++) {
     data.push({
       positionPath: `点1`,
-      InstallationPosition: `空化站北`,
+      inPath: `空化站北`,
       localArea: `区域3`,
       gasType: '天然气',
       InstantaneousFlow: 50.02,
