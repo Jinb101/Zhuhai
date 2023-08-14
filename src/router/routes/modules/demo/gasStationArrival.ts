@@ -10,7 +10,7 @@ const gasStationArrival: AppRouteModule = {
   redirect: '/gasStationArrival/acceptance',
   meta: {
     orderNo: 10,
-    icon: 'ion:layers-outline',
+    icon: 'ant-design:database-outlined',
     title: t('routes.demo.gasStationArrival.manage'),
   },
   children: [
