@@ -10,7 +10,7 @@ const largeScreen: AppRouteModule = {
   component: LAYOUT,
   redirect: '/largeScreen',
   meta: {
-    orderNo: 11,
+    orderNo: 9,
     icon: 'ion:layers-outline',
     title: t('routes.demo.largeScreen.visualizationLargeScreen'),
   },

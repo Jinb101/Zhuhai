@@ -9,7 +9,7 @@ const dataStatisticalAnalysis: AppRouteModule = {
   component: LAYOUT,
   redirect: '/dataStatisticalAnalysis/acceptance',
   meta: {
-    orderNo: 13,
+    orderNo: 10,
     icon: 'ant-design:database-outlined',
     title: t('routes.demo.dataStatisticalAnalysis.manage'),
   },

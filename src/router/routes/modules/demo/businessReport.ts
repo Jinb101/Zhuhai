@@ -9,7 +9,7 @@ const businessReport: AppRouteModule = {
   component: LAYOUT,
   redirect: '/businessReport/acceptance',
   meta: {
-    orderNo: 14,
+    orderNo: 9,
     icon: 'ant-design:database-outlined',
     title: t('routes.demo.businessReport.manage'),
   },
