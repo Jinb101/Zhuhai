@@ -23,6 +23,14 @@ const dataStatisticalAnalysis: AppRouteModule = {
       },
     },
     {
+      path: 'secondaryTableStatistics',
+      name: 'secondaryTableStatistics',
+      component: () => import('/@/views/dataStatisticalAnalysis/secondaryTableStatistics/index.vue'),
+      meta: {
+        title: t('routes.demo.dataStatisticalAnalysis.secondaryTableStatistics'),
+      },
+    },
+    {
       path: 'unitEnergyAnalysis',
       name: 'unitEnergyAnalysis',
       component: () => import('/@/views/dataStatisticalAnalysis/unitEnergyAnalysis/index.vue'),
@@ -36,6 +44,14 @@ const dataStatisticalAnalysis: AppRouteModule = {
       component: () => import('/@/views/dataStatisticalAnalysis/consumption/index.vue'),
       meta: {
         title: t('routes.demo.dataStatisticalAnalysis.consumption'),
+      },
+    },
+    {
+      path: 'energyAnalysis',
+      name: 'energyAnalysis',
+      component: () => import('/@/views/dataStatisticalAnalysis/energyAnalysis/index.vue'),
+      meta: {
+        title: t('routes.demo.dataStatisticalAnalysis.energyAnalysis'),
       },
     },
   ],

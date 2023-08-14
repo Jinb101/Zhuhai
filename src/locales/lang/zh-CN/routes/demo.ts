@@ -32,7 +32,9 @@ export default {
     manage: '数据统计分析',
     consumption: '储罐消耗统计',
     four: '一级表统计',
+    secondaryTableStatistics: '二级表统计',
     six: '单位能效分析',
+    energyAnalysis: '耗能分析',
   },
   businessReport: {
     manage: '业务报表',

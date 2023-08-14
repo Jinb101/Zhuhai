@@ -104,7 +104,7 @@ import {defineComponent, reactive, ref, UnwrapRef,nextTick } from 'vue';
 import {Moment} from "moment";
 import {aoaToSheetXlsx} from "/@/components/Excel";
 import { defineAsyncComponent } from 'vue';
-const VisitAnalysis = defineAsyncComponent(() => import('../primaryTableStatistics/VisitAnalysis'));
+const VisitAnalysis = defineAsyncComponent(() => import('../primaryTableStatistics/VisitAnalysis.vue'));
 export default defineComponent({
   components: {
     VisitAnalysis,
@@ -147,10 +147,10 @@ export default defineComponent({
       data.push({
         key: (i + 1).toString(),
         workshop: workshopList[i%workshopList.length],
-        path: `启动阀左侧 `,
+        path: `二级监测点 `+(i+1),
         name: 'FL2023'+Math.random().toString(10).substr(2, 5) + `${i}`,
         gasType: gasTypeList[i%gasTypeList.length],
-        table: `一级表 `,
+        table: `二级表 `,
         consumption: (Math.random()*100000).toString(9).substr(0, 3),
       });
     }

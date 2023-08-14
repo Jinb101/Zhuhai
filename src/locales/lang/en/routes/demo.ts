@@ -20,7 +20,9 @@ export default {
   dataStatisticalAnalysis: {
     manage: 'Data statistical analysis',
     four: 'Primary Table Statistics',
+    secondaryTableStatistics: 'Secondary Table Statistics',
     six: 'Unit Energy Analysis',
+    energyAnalysis: 'Energy Analysis',
   },
   businessReport: {
     manage: 'Business Report',

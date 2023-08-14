@@ -53,6 +53,9 @@
         <template #operation="{ record }">
           <a-button type="link" size="small" @click="check(record)">查看</a-button>
         </template>
+        <template #path="{ record }">
+          <a-button type="link" size="small" @click="showSecondaryTableModal(record)">{{record.path}}</a-button>
+        </template>
       </a-table>
     </div>
     <!--  实时流量查看弹窗  -->
@@ -96,6 +99,14 @@
         </div>
       </a-modal>
     </div>
+    <!--  二级表统计弹窗  -->
+    <div class="!my-4 enter-y">
+      <a-modal v-model:visible="visibleSecondaryTable" title="二级表统计" :footer="null" width="1500px" @cancel="closeSecondaryTableModal">
+        <div style="margin-top: 10px">
+          <SecondaryTableStatistics />
+        </div>
+      </a-modal>
+    </div>
   </div>
 </template>
 
@@ -105,9 +116,11 @@ import {Moment} from "moment";
 import {aoaToSheetXlsx} from "/@/components/Excel";
 import { defineAsyncComponent } from 'vue';
 const VisitAnalysis = defineAsyncComponent(() => import('./VisitAnalysis.vue'));
+const SecondaryTableStatistics = defineAsyncComponent(() => import('../secondaryTableStatistics/index.vue'));
 export default defineComponent({
   components: {
     VisitAnalysis,
+    SecondaryTableStatistics
   },
   setup() {
 
@@ -171,6 +184,7 @@ export default defineComponent({
         title: '监测点',
         dataIndex: 'path',
         align: 'center',
+        slots: { customRender: 'path' },
       },
       {
         title: '点位编号',
@@ -308,16 +322,28 @@ export default defineComponent({
       }
     }
     const visibleFlow = ref<boolean>(false);
+    const visibleSecondaryTable = ref<boolean>(false);
     const showChart = ref<boolean>(false);
     const showFlowModal = () => {
       visibleFlow.value = true;
       showChart.value = true;
+    };
+
+    const showSecondaryTableModal = (record) => {
+      console.log(record)
+      visibleSecondaryTable.value = true;
     };
     /**
      * 关闭实时流量弹窗
      */
     function closeFlowModal(){
       showChart.value = false;
+    }
+    /**
+     * 关闭二级表弹窗
+     */
+    function closeSecondaryTableModal(){
+
     }
     return {
       formState,
@@ -333,9 +359,12 @@ export default defineComponent({
       check,
       aoaToExcel,
       visibleFlow,
+      visibleSecondaryTable,
       showFlowModal,
+      showSecondaryTableModal,
       showChart,
-      closeFlowModal
+      closeFlowModal,
+      closeSecondaryTableModal,
     }
   }
 })
