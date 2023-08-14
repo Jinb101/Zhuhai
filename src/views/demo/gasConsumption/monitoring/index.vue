@@ -31,10 +31,7 @@
             <a-input v-model:value="formState.crux" placeholder="关键字" />
           </a-form-item>
           <a-form-item>
-            <a-button v-if="showResetButton" @click="inquire">查询</a-button>
-          </a-form-item>
-          <!-- 重置按钮 -->
-          <a-form-item>
+            <a-button v-show="showResetButton" @click="inquire">查询</a-button>
             <a-button @click="resetForm" v-show="!showResetButton">重置</a-button>
           </a-form-item>
         </a-form>
@@ -150,6 +147,7 @@
 </template>
 <script setup lang="ts">
   import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
+  import { message } from 'ant-design-vue/lib/components';
   import { cloneDeep } from 'lodash-es';
   import { Moment } from 'moment';
   import { reactive, toRaw, ref, UnwrapRef, watch } from 'vue';
@@ -346,6 +344,8 @@
           onobj: newFormState.onobj,
           supply: newFormState.supply,
         };
+        // 请求成功后 通知
+        message.success('新增成功');
         dataSource.value.push(newData); // 将新数据添加到表格数据源中
         visible.value = false;
         console.log('New data:', newData);

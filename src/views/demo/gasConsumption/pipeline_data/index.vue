@@ -39,10 +39,7 @@
             <a-input v-model:value="formState.crux" placeholder="关键字" />
           </a-form-item>
           <a-form-item>
-            <a-button v-if="showResetButton" @click="inquire">查询</a-button>
-          </a-form-item>
-          <!-- 重置按钮 -->
-          <a-form-item>
+            <a-button v-show="showResetButton" @click="inquire">查询</a-button>
             <a-button @click="resetForm" v-show="!showResetButton">重置</a-button>
           </a-form-item>
         </a-form>
