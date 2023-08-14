@@ -28,6 +28,17 @@ export default {
     storage: '仓储部门人员管理',
     specification: '气瓶规格管理',
   },
+  dataStatisticalAnalysis: {
+    manage: '数据统计分析',
+    four: '一级表统计',
+    six: '单位能效分析',
+  },
+  businessReport: {
+    manage: '业务报表',
+    two: '气体监测情况报表',
+    three: '报警历史记录报表',
+    four: '监测设备档案报表',
+  },
   charts: {
     baiduMap: '百度地图',
     aMap: '高德地图',

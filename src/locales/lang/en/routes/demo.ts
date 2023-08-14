@@ -17,6 +17,17 @@ export default {
     storage: 'Warehousing department',
     specification: 'Cylinder specification',
   },
+  dataStatisticalAnalysis: {
+    manage: 'Data statistical analysis',
+    four: 'Primary Table Statistics',
+    six: 'Unit Energy Analysis',
+  },
+  businessReport: {
+    manage: 'Business Report',
+    two: 'Gas monitoring report',
+    three: 'Alarm History Report',
+    four: 'Monitoring Equipment Archive Report',
+  },
   charts: {
     baiduMap: 'Baidu map',
     aMap: 'A map',
