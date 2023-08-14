@@ -19,14 +19,14 @@ export default {
     supplier: '供货商管理',
     weighbridge: '地磅检测管理',
   },
-  largeScreen: {
-    visualizationLargeScreen: '3维大屏',
-  },
   gasBottleStationArrival: {
     manage: '气瓶到货验收管理',
     received: '气瓶领用人员管理',
     storage: '仓储部门人员管理',
     specification: '气瓶规格管理',
+  },
+  largeScreen: {
+    visualizationLargeScreen: '3维大屏',
   },
   charts: {
     baiduMap: '百度地图',

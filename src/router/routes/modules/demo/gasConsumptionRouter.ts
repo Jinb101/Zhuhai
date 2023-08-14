@@ -8,8 +8,8 @@ const gasConsumptionRoute: AppRouteModule = {
   component: LAYOUT,
   redirect: '/gasConsumptionRoute/',
   meta: {
-    orderNo: 10,
-    icon: 'ion:layers-outline',
+    orderNo: 11,
+    icon: 'ant-design:database-outlined',
     title: t('routes.demo.gasConsumption.gasConsumptionMonitoring'),
   },
   children: [

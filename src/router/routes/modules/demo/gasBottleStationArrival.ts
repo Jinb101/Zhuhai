@@ -9,7 +9,7 @@ const gasBottleStationArrival: AppRouteModule = {
   component: LAYOUT,
   redirect: '/gasBottleStationArrival/acceptance',
   meta: {
-    orderNo: 11,
+    orderNo: 10,
     icon: 'ant-design:database-outlined',
     title: t('routes.demo.gasBottleStationArrival.manage'),
   },
