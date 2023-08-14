@@ -1,0 +1,401 @@
+<template>
+  <div class="w-full h-full px-4 py-4">
+    <div class="h-[10%] w-full bg-white flex justify-start items-center px-4">
+      <div class="w-4/5">
+        <a-form layout="inline" :model="formState">
+          <a-form-item>
+            <a-select v-model:value="formState.region" placeholder="区域" style="width: 8rem">
+              <a-select-option value="1">生产车间</a-select-option>
+              <a-select-option value="2">涂料车间</a-select-option>
+              <a-select-option value="3">橡胶车间</a-select-option>
+            </a-select>
+          </a-form-item>
+
+          <a-form-item>
+            <a-date-picker
+              v-model:value="formState.createTime"
+              type="date"
+              placeholder="开始日期"
+              style="width: 100%"
+            />
+          </a-form-item>
+          <a-form-item>
+            <a-date-picker
+              v-model:value="formState.endTime"
+              type="date"
+              placeholder="结束日期"
+              style="width: 100%"
+            />
+          </a-form-item>
+          <a-form-item>
+            <a-input v-model:value="formState.crux" placeholder="关键字" />
+          </a-form-item>
+          <a-form-item>
+            <a-button v-show="showResetButton" @click="inquire">查询</a-button>
+            <a-button @click="resetForm" v-show="!showResetButton">重置</a-button>
+          </a-form-item>
+        </a-form>
+      </div>
+      <div class="w-1/5 flex justify-end items-center">
+        <a-button type="primary" @click="showModal">新增</a-button>
+      </div>
+    </div>
+    <div class="w-full mt-4">
+      <a-table
+        :rowKey="(__record, _index) => __record.key"
+        class="h-full w-full"
+        :columns="columns"
+        :data-source="dataSource"
+        bordered
+      >
+        <template
+          v-for="col in [
+            'name',
+            'species',
+            'quantity',
+            'manufacturer',
+            'inputTime',
+            'equipmentArea',
+            'insite',
+          ]"
+          #[col]="{ text, record }"
+          :key="col"
+        >
+          <div class="">
+            <a-input
+              v-if="editableData[record.key]"
+              v-model:value="editableData[record.key][col]"
+              style="margin: -5px 0"
+            />
+            <template v-else>
+              {{ text }}
+            </template>
+          </div>
+        </template>
+        <template #operation="{ record }">
+          <div class="editable-row-operations">
+            <span v-if="editableData[record.key]">
+              <a @click="save(record.key)">保存</a>
+              <span class="cursor-pointer" @click="cancel(record.key)">取消</span>
+            </span>
+            <span v-else>
+              <a @click="edit(record.key)">修改</a>
+              <span class="cursor-pointer" @click="deleteKey(record.idr)">删除</span>
+            </span>
+          </div>
+        </template>
+      </a-table>
+    </div>
+    <div>
+      <a-modal :destroyOnClose="true" v-model:visible="visible" title="新增设备" @ok="addItem">
+        <div class="w-full h-full flex justify-start items-center px-4 py-4">
+          <a-form
+            :model="newFormState"
+            ref="newFrom"
+            :rules="rules"
+            layout="horizontal"
+            labelAlign="left"
+            :label-col="{ span: 10 }"
+            :wrapper-col="{ span: 20 }"
+          >
+            <a-form-item label="设备名称" name="name" :rules="rules.name">
+              <a-input
+                autocomplete="off"
+                v-model:value="newFormState.name"
+                placeholder="设备名称"
+              />
+            </a-form-item>
+            <a-form-item label="监测类型" name="species">
+              <a-input
+                autocomplete="off"
+                v-model:value="newFormState.species"
+                placeholder="监测类型"
+              />
+            </a-form-item>
+            <a-form-item label="数量" name="quantity">
+              <a-input
+                autocomplete="off"
+                v-model:value="newFormState.quantity"
+                placeholder="数量"
+              />
+            </a-form-item>
+            <a-form-item label="生产厂家" name="manufacturer">
+              <a-input
+                autocomplete="off"
+                v-model:value="newFormState.manufacturer"
+                placeholder="生产厂家"
+              />
+            </a-form-item>
+            <a-form-item label="投入时间" name="inputTime" required>
+              <a-date-picker
+                v-model:value="newFormState.inputTime"
+                placeholder="投入时间"
+                type="date"
+                style="width: auto"
+              />
+            </a-form-item>
+            <a-form-item label="区域" name="equipmentArea">
+              <a-input
+                autocomplete="off"
+                v-model:value="newFormState.equipmentArea"
+                placeholder="区域"
+              />
+            </a-form-item>
+            <a-form-item label="安装地点" name="insite">
+              <a-input
+                autocomplete="off"
+                v-model:value="newFormState.insite"
+                placeholder="安装地点"
+              />
+            </a-form-item>
+          </a-form>
+        </div>
+      </a-modal>
+    </div>
+  </div>
+</template>
+<script setup lang="ts">
+  import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
+  import { message } from 'ant-design-vue/lib/components';
+  import { cloneDeep } from 'lodash-es';
+  import { Moment } from 'moment';
+  import { reactive, toRaw, ref, UnwrapRef, watch } from 'vue';
+
+  interface DataItem {
+    key: string;
+    idr: string | number;
+    name: string;
+    species: string;
+    quantity: string;
+    manufacturer: string;
+    inputTime: string;
+    equipmentArea: string;
+    insite: string;
+  }
+  interface FormState {
+    region: string | undefined;
+    createTime: Moment | undefined;
+    endTime: Moment | undefined;
+    crux: string;
+  }
+  interface NewFormState {
+    name: string;
+    species: string;
+    quantity: string;
+    manufacturer: string;
+    inputTime: string;
+    equipmentArea: string;
+    insite: string;
+  }
+
+  const columns = [
+    {
+      title: '编号',
+      dataIndex: 'key',
+      align: 'center',
+      slots: { customRender: 'key' },
+    },
+    {
+      title: '设备编号',
+      dataIndex: 'idr',
+      align: 'center',
+      width: '10%',
+      slots: { customRender: 'idr' },
+    },
+    {
+      title: '设备名称',
+      dataIndex: 'name',
+      align: 'center',
+      width: '10%',
+      slots: { customRender: 'name' },
+    },
+    {
+      title: '监测类型',
+      dataIndex: 'species',
+      width: '10%',
+      slots: { customRender: 'species' },
+      align: 'center',
+    },
+    {
+      title: '数量',
+      dataIndex: 'quantity',
+      slots: { customRender: 'quantity' },
+      align: 'center',
+    },
+    {
+      title: '生产厂家',
+      dataIndex: 'manufacturer',
+      align: 'center',
+      width: '10%',
+      slots: { customRender: 'manufacturer' },
+    },
+    {
+      title: '投入时间',
+      dataIndex: 'inputTime',
+      align: 'center',
+      width: '10%',
+      slots: { customRender: 'inputTime' },
+    },
+    {
+      title: '区域',
+      dataIndex: 'equipmentArea',
+      align: 'center',
+      width: '10%',
+      slots: { customRender: 'equipmentArea' },
+    },
+    {
+      title: '安装地点',
+      align: 'center',
+      dataIndex: 'insite',
+      width: '10%',
+      slots: { customRender: 'insite' },
+    },
+    {
+      title: '操作',
+      align: 'center',
+      width: '15%',
+      dataIndex: 'operation',
+      slots: { customRender: 'operation' },
+    },
+  ];
+
+  const data: DataItem[] = [];
+  for (let i = 0; i < 100; i++) {
+    data.push({
+      key: (i + 1).toString(),
+      idr: Math.random().toString(36).substr(2, 7) + `${i}`,
+      name: `天然气监测点 ${i}`,
+      species: `KM2023 `,
+      quantity: `9 `,
+      manufacturer: `厂家1 `,
+      inputTime: `2023-07-01 `,
+      equipmentArea: `生产车间  `,
+      insite: ` 启动阀右侧 `,
+    });
+  }
+
+  const dataSource = ref(data);
+  const editableData: UnwrapRef<Record<string, DataItem>> = reactive({});
+  const visible = ref<boolean>(false);
+  const showResetButton = ref<boolean>(true);
+  const newFrom = ref();
+  const edit = (key: string) => {
+    editableData[key] = cloneDeep(dataSource.value.filter((item) => key === item.key)[0]);
+  };
+  const deleteKey = (idr: string) => {
+    const index = dataSource.value.findIndex((item) => item.idr === idr);
+    if (index !== -1) {
+      dataSource.value.splice(index, 1);
+    }
+  };
+  const save = (key: string) => {
+    Object.assign(dataSource.value.filter((item) => key === item.key)[0], editableData[key]);
+    delete editableData[key];
+  };
+  const cancel = (key: string) => {
+    delete editableData[key];
+  };
+  // form
+  const formState: UnwrapRef<FormState> = reactive({
+    region: '区域',
+    createTime: undefined,
+    endTime: undefined,
+    crux: '',
+  });
+  const newFormState: UnwrapRef<NewFormState> = reactive({
+    name: '',
+    species: '',
+    quantity: '',
+    manufacturer: '',
+    inputTime: '',
+    equipmentArea: '',
+    insite: '',
+  });
+  const rules = {
+    name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+    species: [{ required: true, message: '请输入型号规格', trigger: 'blur' }],
+    quantity: [{ required: true, message: '请输入数量', trigger: 'blur' }],
+    manufacturer: [{ required: true, message: '请输入生产厂家', trigger: 'blur' }],
+    inputTime: [{ required: true, message: '请选择投入时间', trigger: 'change', type: 'object' }],
+    equipmentArea: [{ required: true, message: '请输入检测对象', trigger: 'blur' }],
+    insite: [{ required: true, message: '请输入安装地点', trigger: 'blur' }],
+  };
+  const inquire = () => {
+    const keyword = formState.crux.trim(); // 获取关键字并去除两端的空格
+
+    if (keyword === '') {
+      // 如果关键字为空，则重置数据源
+      return;
+    }
+    showResetButton.value = false;
+    // 根据关键字进行筛选
+    dataSource.value = data.filter((item) =>
+      Object.values(item).some((value) =>
+        value.toString().toLowerCase().includes(keyword.toLowerCase()),
+      ),
+    );
+  };
+
+  const addItem = () => {
+    newFrom.value
+      ?.validate()
+      .then(() => {
+        const newIdr = Math.random().toString(36).substr(2, 7); // 生成随机的 idr 值
+        const newData = {
+          key: (dataSource.value.length + 1).toString(), // 生成唯一的 key
+          idr: newIdr,
+          name: newFormState.name,
+          species: newFormState.species,
+          quantity: newFormState.quantity,
+          manufacturer: newFormState.manufacturer,
+          inputTime: newFormState.inputTime,
+          equipmentArea: newFormState.equipmentArea,
+          insite: newFormState.insite,
+        };
+        // 请求成功后 通知
+        message.success('新增成功');
+        dataSource.value.push(newData); // 将新数据添加到表格数据源中
+        visible.value = false;
+        console.log('New data:', newData);
+        console.log('values', formState, toRaw(formState));
+      })
+      .catch((error: ValidateErrorEntity<FormState>) => {
+        console.log('error', error);
+      });
+  };
+  const resetForm = () => {
+    showResetButton.value = true;
+    formState.region = undefined;
+    formState.createTime = undefined;
+    formState.endTime = undefined;
+    formState.crux = '';
+    dataSource.value = data;
+  };
+
+  const showModal = () => {
+    visible.value = true;
+  };
+
+  watch(
+    visible,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+    (newData, _oldData) => {
+      if (!newData) {
+        newFrom.value?.resetFields();
+      }
+    },
+    { immediate: true, deep: true },
+  );
+</script>
+<style scoped>
+  .editable-row-operations a {
+    margin-right: 8px;
+  }
+  .ant-table-tbody > tr > td {
+    height: auto !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+</style>

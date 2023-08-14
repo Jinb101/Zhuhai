@@ -35,6 +35,8 @@ export default {
   },
   businessReport: {
     manage: '业务报表',
+    information: '设备信息管理 ',
+    equipment: '监测设备档案报表 ',
     two: '气体监测情况报表',
     three: '报警历史记录报表',
     four: '监测设备档案报表',

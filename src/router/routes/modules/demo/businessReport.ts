@@ -15,6 +15,22 @@ const businessReport: AppRouteModule = {
   },
   children: [
     {
+      path: 'information',
+      name: 'information',
+      component: () => import('/@/views/businessReport/information/index.vue'),
+      meta: {
+        title: t('routes.demo.businessReport.information'),
+      },
+    },
+    {
+      path: 'equipment',
+      name: 'equipment',
+      component: () => import('/@/views/businessReport/equipment/index.vue'),
+      meta: {
+        title: t('routes.demo.businessReport.equipment'),
+      },
+    },
+    {
       path: 'gasMonitoringReport',
       name: 'gasMonitoringReport',
       component: () => import('/@/views/businessReport/gasMonitoringReport/index.vue'),
