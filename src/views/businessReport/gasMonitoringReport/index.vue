@@ -39,11 +39,11 @@
             <a-input v-model:value="formState.crux" placeholder="关键字" />
           </a-form-item>
           <a-form-item>
-            <a-button @click="search">查询</a-button>
+            <a-button @click="search" v-show="showResetButton">查询</a-button>
           </a-form-item>
           <!-- 重置按钮 -->
           <a-form-item>
-            <a-button @click="resetForm">重置</a-button>
+            <a-button @click="resetForm" v-show="!showResetButton">重置</a-button>
           </a-form-item>
         </a-form>
       </div>
@@ -64,6 +64,7 @@
   import { aoaToSheetXlsx } from '/@/components/Excel';
   export default defineComponent({
     setup() {
+      const showResetButton = ref<boolean>(true);
       const formState: UnwrapRef<FormState> = reactive({
         region: undefined,
         gasType: undefined,
@@ -183,6 +184,7 @@
             dataSource.value.push(data[i]);
           }
         }
+        showResetButton.value = false
         dealNo();
       }
       /**
@@ -199,6 +201,7 @@
         for (let i = 0; i < data.length; i++) {
           dataSource.value.push(data[i]);
         }
+        showResetButton.value = true
         dealNo();
       }
 
@@ -227,6 +230,7 @@
         workshopList,
         check,
         aoaToExcel,
+        showResetButton
       };
     },
   });

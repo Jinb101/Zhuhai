@@ -198,6 +198,10 @@ export default defineComponent({
           break
         }
       }
+      for (let i = 0; i < dataList1.length; i++) {
+        dataList1[i].gasType = record.gasType
+      }
+
       expandNum.value = num
       console.log(num,expanded)
     }
