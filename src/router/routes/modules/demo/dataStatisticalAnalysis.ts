@@ -30,6 +30,14 @@ const dataStatisticalAnalysis: AppRouteModule = {
         title: t('routes.demo.dataStatisticalAnalysis.six'),
       },
     },
+    {
+      path: 'consumption',
+      name: 'consumption',
+      component: () => import('/@/views/dataStatisticalAnalysis/consumption/index.vue'),
+      meta: {
+        title: t('routes.demo.dataStatisticalAnalysis.consumption'),
+      },
+    },
   ],
 };
 

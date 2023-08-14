@@ -30,6 +30,7 @@ export default {
   },
   dataStatisticalAnalysis: {
     manage: '数据统计分析',
+    consumption: '储罐消耗统计',
     four: '一级表统计',
     six: '单位能效分析',
   },
