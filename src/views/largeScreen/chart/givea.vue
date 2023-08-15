@@ -10,7 +10,6 @@
         >报警</div
       ></div
     >
-
     <div class="h-full w-full relative">
       <div class="w-1/2 h-full absolute top-0 left-0 px-2 py-2 overflow-y-auto">
         <div v-for="item in csbj" :key="item.key" class="flex flex-col justify-center items-start">

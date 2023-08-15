@@ -37,6 +37,7 @@ module.exports = defineConfig({
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
+    'prettier/prettier': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
@@ -74,6 +75,6 @@ module.exports = defineConfig({
         math: 'always',
       },
     ],
-		'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
   },
 });

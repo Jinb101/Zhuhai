@@ -1,90 +1,89 @@
 <template>
-  <div class="h-full w-full" ref="parent" v-loading="lod">
+  <div class="h-full w-full flex justify-center items-center" ref="parent">
     <canvas style="height: 100%; width: 100%" ref="canvas"></canvas>
   </div>
 </template>
 
-<script setup lang="ts">
-  import { ref, onMounted, nextTick } from 'vue';
+<script lang="ts">
+  import { nextTick, onMounted, ref } from 'vue';
   import * as THREE from 'three';
   import { Scene, PerspectiveCamera, WebGLRenderer } from 'three';
   import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-  const lod = ref<boolean>(true);
-  const parent = ref<HTMLElement | null>(null);
-  const canvas = ref<HTMLCanvasElement | null>(null);
+  export default {
+    name: 'MapModolNode',
+    setup(_props, { emit }) {
+      const parent = ref(null);
+      const canvas = ref(null);
 
-  onMounted(async () => {
-    await nextTick(); // Wait for DOM update
+      onMounted(async () => {
+        await nextTick(); // Wait for DOM update
 
-    const parentValue = parent.value;
-    const canvasValue = canvas.value;
-    const parentWidth = parentValue?.clientWidth ?? 0;
-    const parentHeight = parentValue?.clientHeight ?? 0;
+        const parentValue = parent.value as any;
+        const canvasValue = canvas.value;
+        const parentWidth = parentValue?.clientWidth ?? 0;
+        const parentHeight = parentValue?.clientHeight ?? 0;
 
-    const scene = new Scene();
-    const camera = new PerspectiveCamera(75, parentWidth / parentHeight, 0.1, 1000);
-    const renderer = new WebGLRenderer({ canvas: canvasValue });
-    renderer.setSize(parentWidth, parentHeight);
+        const scene = new Scene();
+        const camera = new PerspectiveCamera(45, parentWidth / parentHeight, 0.1, 1000);
+        const renderer = new WebGLRenderer({ canvas: canvasValue, antialias: true });
+        renderer.setSize(parentWidth, parentHeight, false);
+        renderer.setPixelRatio(window.devicePixelRatio);
 
-    // Add ambient light for better visibility
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(ambientLight);
+        // Add ambient light for better visibility
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(ambientLight);
 
-    const loader = new FBXLoader();
-    await new Promise<void>((resolve) => {
-      loader.load(
-        '/model/zhfl.fbx',
-        (fbxModel) => {
-          console.log('FBX model loaded successfully', fbxModel);
+        const loader = new FBXLoader();
+        await new Promise<void>((resolve) => {
+          loader.load(
+            '/model/zhfl.fbx',
+            (fbxModel) => {
+              // 使用LOD技术加载不同细节级别的模型
+              const lod1 = fbxModel.clone();
+              const lod2 = fbxModel.clone();
+              scene.add(lod1);
+              scene.add(lod2);
 
-          fbxModel.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-              const originalColor = child.material.color;
+              // 加载完成后隐藏加载动画
+              emit('update-lod', false);
+              const light = new THREE.DirectionalLight(0xffffff, 20);
+              light.position.set(0, 1, 0);
+              scene.add(light);
 
-              // Adjust material properties for more realism
-              if (child.material instanceof THREE.MeshStandardMaterial) {
-                child.material.color = originalColor;
-                child.material.emissive.set(0, 0, 0);
-                child.material.roughness = 0.5;
-                child.material.metalness = 0.5;
-              }
-            }
-          });
+              resolve();
+            },
+            (_error) => {
+              // console.error('Failed to load FBX model', error);
+            },
+          );
+        });
 
-          lod.value = false;
+        camera.position.set(500, 50, 450);
+        camera.lookAt(0, 0, 0);
 
-          const light = new THREE.DirectionalLight(0xffffff, 10);
-          light.position.set(0, 1, 0);
-          scene.add(light);
-          scene.add(fbxModel);
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.1;
+        controls.rotateSpeed = 0.6;
+        controls.zoomSpeed = 1;
 
-          resolve();
-        },
-        (error) => {
-          console.error('Failed to load FBX model', error);
-        },
-      );
-    });
+        const animate = () => {
+          requestAnimationFrame(animate);
+          controls.update();
+          renderer.render(scene, camera);
+        };
 
-    camera.position.z = 5;
+        animate();
+      });
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.1;
-    controls.rotateSpeed = 0.6;
-    controls.zoomSpeed = 1;
-    controls.target.set(0, 0, 0);
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-    };
-
-    animate();
-  });
+      return {
+        parent,
+        canvas,
+      };
+    },
+  };
 </script>
 
 <style scoped></style>

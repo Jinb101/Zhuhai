@@ -1,14 +1,14 @@
 <template>
   <div class="lare px-4 relative">
     <div class="flex pt-2 h-[7%] justify-between items-center">
-      <div class="w-[8%]"></div>
-      <div class="grow w-auto h-full">
-        <img
-          src="../../assets/images/large/logo.png"
-          alt=""
-          srcset=""
-          style="height: 100%; width: 100%"
-        />
+      <div class="w-[9%]"></div>
+      <div class="w-[80%] h-full flex justify-center items-center">
+        <div class="grow w-[60%] h-full flex justify-center items-center">
+          <div class="w-1/4 flex justify-between items-center">
+            <img src="../../assets/images/large/logo.png" class="w-10" alt="" srcset="" />
+            <div class="text-2xl tracking-wider font-semibold">福陆监测系统</div>
+          </div>
+        </div>
       </div>
       <div class="flex flex-col justify-center rounded-md items-center bg-[#006cdf2c] w-[9%]">
         <div class="text-2xl">{{ currentTime }}</div>
@@ -16,7 +16,9 @@
       </div>
     </div>
 
-    <div class="echarts_box pt-2 h-[85%] w-full mt-6 flex flex-col justify-start items-center">
+    <div
+      class="echarts_box pt-2 h-[85%] w-full mt-6 flex flex-col justify-start items-center relative"
+    >
       <div class="w-full h-2/3 flex justify-between items-center">
         <!-- h-l -->
         <div class="w-1/4 h-full flex flex-col justify-between items-center px-2">
@@ -30,12 +32,27 @@
           </div>
         </div>
         <!-- h-c -->
-        <div class="w-1/2 h-full px-2">
+        <div class="w-[48%] h-full map_modol relative">
+          <div
+            v-if="!isFullScreen"
+            class="absolute top-0 right-0 h-full w-full z-0"
+            v-loading="lod"
+          >
+            <div class="technology">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
           <!-- 3D模型地图 -->
-          <div class="h-full w-full relative">
-            <div class="absolute top-0 left-0 w-full h-14 px-4 flex justify-end items-center">
-              <!-- <div class="w-[20%] pl-2 text_gradient">三维模型</div> -->
+          <div
+            class="relative h-full w-full"
+            :class="{ full_screen: isFullScreen, active: isFullScreen }"
+          >
+            <div class="absolute top-0 left-0 w-full h-14 px-4 flex justify-end items-center z-10">
               <img
+                v-if="!isFullScreen"
                 @click="openModol"
                 src="../../assets/images/large/big.png "
                 alt=""
@@ -43,7 +60,15 @@
                 class="h-8 cursor-pointer"
               />
             </div>
-            <img src="../../assets/images/large/map.png" alt="" srcset="" class="h-full w-full" />
+            <div class="h-full w-full z-10" v-if="showMap">
+              <div v-if="isFullScreen" class="absolute right-8 top-6 z-10">
+                <FullscreenExitOutlined
+                  style="color: #0054db; font-size: 1.5rem"
+                  @click="isFullScreen = false"
+                />
+              </div>
+              <MapModolNode :lod="lod" @update-lod="updateLod" />
+            </div>
           </div>
         </div>
         <!-- h-r -->
@@ -78,22 +103,11 @@
         </div>
       </div>
     </div>
-
-    <a-modal
-      v-model:visible="open"
-      width="80%"
-      wrapClassName="full-modal"
-      :destroyOnClose="true"
-      :closable="false"
-      :footer="null"
-    >
-      <MapModolNode />
-    </a-modal>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { ref, nextTick, onMounted } from 'vue';
+  import { ref, nextTick, onMounted, defineAsyncComponent } from 'vue';
   import RealTimeNode from './chart/realtime.vue';
   import NaturalNode from './chart/natural.vue';
   import BreathNode from './chart/breath.vue';
@@ -102,13 +116,18 @@
   import CarbonDioxideNode from './chart/carbon.vue';
   import CompressBreathNode from './chart/compress.vue';
   import OnsumptionNode from './chart/onsumption.vue';
-  //modol map
-  import MapModolNode from './chart/modol.vue';
-  // time-value is
+  import { FullscreenExitOutlined } from '@ant-design/icons-vue';
+  const MapModolNode = defineAsyncComponent(() => import('./chart/modol.vue'));
+
   const currentTime = ref('');
-  // open modol
-  const open = ref<boolean>(false);
-  // yyyy-mm-mm
+  const isFullScreen = ref(false);
+  const showMap = ref(false);
+  const lod = ref(true);
+
+  const updateLod = (value: boolean) => {
+    lod.value = value;
+  };
+
   const getCurrentDate = (): string => {
     const now = new Date();
     const year = now.getFullYear();
@@ -117,7 +136,7 @@
 
     return `${year}年${month}月${day}日`;
   };
-  // time
+
   const getCurrentTime = (): string => {
     const now = new Date();
     const hours = now.getHours();
@@ -128,12 +147,15 @@
   };
 
   const openModol = () => {
-    open.value = true;
+    isFullScreen.value = !isFullScreen.value;
   };
 
   onMounted(() => {
     currentTime.value = getCurrentTime();
     nextTick(() => {
+      setTimeout(() => {
+        showMap.value = true;
+      }, 700);
       setInterval(() => {
         currentTime.value = getCurrentTime();
       }, 1000);
@@ -143,13 +165,24 @@
 
 <style scoped>
   .lare {
-    height: 100vh !important;
+    position: absolute;
+    height: 100% !important;
     width: 100% !important;
-    background-image: url('../../assets/images/large/bg.png') !important;
+    background-image: url('../../assets/images/large/map_bg.png') !important;
     background-size: 100% 100% !important;
     color: white !important;
   }
+  .grow {
+    background-image: url('../../assets/images/large/logo_bg.png') !important;
+    background-size: 100% 100% !important;
+  }
 
+  .text_gradient {
+    background: linear-gradient(to right, #001a60c0, transparent);
+  }
+  .map_modol {
+    transition: all 0.7s ease-in-out;
+  }
   .technology {
     position: relative;
     width: 100%;
@@ -197,8 +230,19 @@
     border-color: #2c8dff;
     border-width: 0 0 5px 5px;
   }
-
-  .text_gradient {
-    background: linear-gradient(to right, #001a60c0, transparent);
+  .full_screen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    transform-origin: center center; /* 设置变换的原点为中心 */
+    transform: scale(0); /* 默认缩小为0 */
+    transition: transform 0.7s ease-in-out; /* 添加过渡效果 */
+  }
+  .full_screen.active {
+    transform: scale(1); /* 放大为原始大小 */
   }
 </style>

@@ -63,7 +63,7 @@
     const today = new Date();
     const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
     const dailyData = [120, 132, 101, 134, 90, 230, 210];
-    const monthlyData = [220, 182, 191, 234, 290, 330, 310];
+    const monthlyData = [120, 132, 101, 134, 90];
     const annualData = [320, 332, 301, 334, 390, 330, 320];
 
     if (selectedButton === 'daily') {
@@ -78,31 +78,22 @@
       });
     } else if (selectedButton === 'monthly') {
       const today = new Date();
-      // const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-      const daysInPreviousMonth = lastDayOfPreviousMonth.getDate();
-      const days = Math.min(daysInPreviousMonth, 7);
-      const xAxisData = Array.from({ length: days }, (_, index) => {
-        const date = new Date(
-          lastDayOfPreviousMonth.getTime() - (days - 1 - index) * 24 * 60 * 60 * 1000,
-        );
-        return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
-      });
-      if (today.getDate() >= 2) {
-        chartOption.series[0].data = monthlyData.slice(0, today.getDate() - 1);
-        chartOption.series[1].data = monthlyData.slice(0, today.getDate() - 1);
-        chartOption.series[2].data = monthlyData.slice(0, today.getDate() - 1);
-        chartOption.series[3].data = monthlyData.slice(0, today.getDate() - 1);
-        chartOption.series[4].data = monthlyData.slice(0, today.getDate() - 1);
-        chartOption.xAxis[0].data = xAxisData.slice(0, today.getDate() - 1);
-      } else {
-        chartOption.series[0].data = monthlyData.slice(0, days);
-        chartOption.series[1].data = monthlyData.slice(0, days);
-        chartOption.series[2].data = monthlyData.slice(0, days);
-        chartOption.series[3].data = monthlyData.slice(0, days);
-        chartOption.series[4].data = monthlyData.slice(0, days);
-        chartOption.xAxis[0].data = xAxisData;
+      const currentMonth = today.getMonth();
+      let xAxisData: string[] = [];
+      const currentYear = today.getFullYear();
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      const startDay = Math.max(1, daysInMonth - 29);
+      const interval = 3;
+      for (let i = startDay; i <= daysInMonth; i += interval) {
+        xAxisData.push(`${currentMonth + 1}-${i}`);
       }
+      chartOption.series[0].data = monthlyData.slice(annualData.length - 7);
+      chartOption.series[1].data = monthlyData.slice(annualData.length - 7);
+      chartOption.series[2].data = monthlyData.slice(annualData.length - 7);
+      chartOption.series[3].data = monthlyData.slice(annualData.length - 7);
+      chartOption.series[4].data = monthlyData.slice(annualData.length - 7);
+      chartOption.xAxis[0].data = xAxisData;
+      console.log(xAxisData);
     } else if (selectedButton === 'annual') {
       const currentYear = new Date().getFullYear();
       const years = Array.from({ length: 7 }, (_, index) => currentYear - 7 + index);
