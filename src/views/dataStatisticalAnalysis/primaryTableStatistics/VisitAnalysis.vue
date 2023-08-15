@@ -5,7 +5,7 @@
   import { onMounted, ref, Ref } from 'vue';
   import { useECharts } from '/@/hooks/web/useECharts';
   import { basicProps } from './props.ts';
-  import moment from "moment";
+  import moment from 'moment';
 
   defineProps({
     ...basicProps,
@@ -25,7 +25,7 @@
     return numbers;
   }
 
-  var data_in = generateRandomNumbers()
+  var data_in = generateRandomNumbers();
   var oneDay = 24 * 3600 * 1000;
   var fiveMinutes = 300 * 1000;
   var timestr = moment(new Date()).format('YYYY-MM-DD HH:mm:ss').toString();
@@ -135,7 +135,7 @@
               item.color +
               '"></span>';
             result += item.seriesName + '：';
-            result += isNaN(item.value[1]) ? 0 : (item.value[1]).toFixed(2) + '℃';
+            result += isNaN(item.value[1]) ? 0 : item.value[1].toFixed(2) + '℃';
           });
           return result;
         },
@@ -147,7 +147,7 @@
           showSymbol: false,
           symbolSize: 12,
           data: liuru,
-        }
+        },
       ],
     });
     setInterval(function () {

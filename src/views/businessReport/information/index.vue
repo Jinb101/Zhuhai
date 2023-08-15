@@ -1,42 +1,41 @@
 <template>
   <div class="w-full h-full px-4 py-4">
-    <div class="h-[10%] w-full bg-white flex justify-start items-center px-4 py-4">
-      <div class="w-4/5">
-        <a-form layout="inline" :model="formState">
-          <a-form-item>
-            <a-select v-model:value="formState.region" placeholder="区域" style="width: 8rem">
-              <a-select-option value="1">生产车间</a-select-option>
-              <a-select-option value="2">涂料车间</a-select-option>
-              <a-select-option value="3">橡胶车间</a-select-option>
-            </a-select>
-          </a-form-item>
+    <div class="min-h-[10%] w-full bg-white flex justify-between items-center px-4 py-4">
+      <a-form layout="inline" :model="formState">
+        <a-form-item>
+          <a-select v-model:value="formState.region" placeholder="区域" style="width: 8rem">
+            <a-select-option value="1">生产车间</a-select-option>
+            <a-select-option value="2">涂料车间</a-select-option>
+            <a-select-option value="3">橡胶车间</a-select-option>
+          </a-select>
+        </a-form-item>
 
-          <a-form-item>
-            <a-date-picker
-              v-model:value="formState.createTime"
-              type="date"
-              placeholder="开始日期"
-              style="width: 100%"
-            />
-          </a-form-item>
-          <a-form-item>
-            <a-date-picker
-              v-model:value="formState.endTime"
-              type="date"
-              placeholder="结束日期"
-              style="width: 100%"
-            />
-          </a-form-item>
-          <a-form-item>
-            <a-input v-model:value="formState.crux" placeholder="关键字" />
-          </a-form-item>
-          <a-form-item>
-            <a-button v-show="showResetButton" @click="inquire">查询</a-button>
-            <a-button @click="resetForm" v-show="!showResetButton">重置</a-button>
-          </a-form-item>
-        </a-form>
-      </div>
-      <div class="w-1/5 flex justify-end items-center">
+        <a-form-item>
+          <a-date-picker
+            v-model:value="formState.createTime"
+            type="date"
+            placeholder="开始日期"
+            style="width: 100%"
+          />
+        </a-form-item>
+        <a-form-item>
+          <a-date-picker
+            v-model:value="formState.endTime"
+            type="date"
+            placeholder="结束日期"
+            style="width: 100%"
+          />
+        </a-form-item>
+        <a-form-item>
+          <a-input v-model:value="formState.crux" placeholder="关键字" />
+        </a-form-item>
+        <a-form-item>
+          <a-button v-show="showResetButton" @click="inquire">查询</a-button>
+          <a-button @click="resetForm" v-show="!showResetButton">重置</a-button>
+        </a-form-item>
+      </a-form>
+
+      <div class="flex justify-end items-center">
         <a-button type="primary" @click="showModal">新增</a-button>
       </div>
     </div>

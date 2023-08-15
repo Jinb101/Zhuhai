@@ -222,8 +222,8 @@
   const resetForm = () => {
     showResetButton.value = true;
     formState.crux = '';
-    formState.alarm = '';
-    formState.flow = '';
+    formState.alarm = undefined;
+    formState.flow = undefined;
     dataSource.value = fromData;
   };
   //表单操作

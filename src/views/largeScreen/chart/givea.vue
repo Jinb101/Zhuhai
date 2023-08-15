@@ -1,5 +1,4 @@
 <template>
-  <!-- 报警 -->
   <div class="technology">
     <span></span>
     <span></span>
@@ -31,7 +30,6 @@
       </div>
     </div>
   </div>
-  <!-- 报警 -->
 </template>
 
 <script setup lang="ts">

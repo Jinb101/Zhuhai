@@ -1,5 +1,4 @@
 <template>
-  <!-- 累计消耗 -->
   <div class="technology">
     <span></span>
     <span></span>

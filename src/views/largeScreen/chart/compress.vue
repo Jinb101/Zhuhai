@@ -1,5 +1,4 @@
 <template>
-  <!-- 压缩空气 -->
   <div class="technology relative">
     <span></span>
     <span></span>
@@ -27,7 +26,6 @@
     </div>
     <div ref="meyeathrs" class="reademo" :style="{ width: '100%', height: '100%' }"></div>
   </div>
-  <!-- 压缩空气 -->
 </template>
 
 <script setup lang="ts">

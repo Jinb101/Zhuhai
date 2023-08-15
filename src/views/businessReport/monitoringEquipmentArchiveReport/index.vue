@@ -1,6 +1,6 @@
 <template>
-  <!-- 监测设备档案报表 -->
   <div class="w-full h-full px-4 py-4">
+    <!-- 监测设备档案报表 -->
     <!--  搜索区域  -->
     <div class="h-auto w-full bg-white flex justify-between items-center px-4 py-4">
       <div class="w-auto h-full">

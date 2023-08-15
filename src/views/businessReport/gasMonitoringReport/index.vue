@@ -1,9 +1,9 @@
 <template>
-  <!-- 气体监测情况报表 -->
   <div class="w-full h-full px-4 py-4">
+    <!-- 气体监测情况报表 -->
     <!--  搜索区域  -->
     <div class="h-auto w-full bg-white flex justify-between items-center px-4 py-4">
-      <div class="w-auto h-full">
+      <div class="h-full">
         <a-form layout="inline" :model="formState">
           <a-form-item>
             <a-select v-model:value="formState.region" placeholder="区域信息" style="width: 8rem">

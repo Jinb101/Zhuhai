@@ -1,6 +1,6 @@
 <template>
-  <!-- 氧气 -->
   <div class="technology relative">
+    <!-- 氧气 -->
     <span></span>
     <span></span>
     <span></span>
@@ -27,7 +27,6 @@
     </div>
     <div ref="bereathrs" class="" :style="{ width: '100%', height: '100%' }"></div>
   </div>
-  <!-- 氧气 -->
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,4 @@
 <template>
-  <!-- 实时数据 -->
   <div class="technology">
     <span></span>
     <span></span>
@@ -12,7 +11,6 @@
     >
     <div ref="chartContainer" class="reademo" :style="{ width: '100%', height: '100%' }"></div>
   </div>
-  <!-- 实时数据 -->
 </template>
 
 <script setup lang="ts">
