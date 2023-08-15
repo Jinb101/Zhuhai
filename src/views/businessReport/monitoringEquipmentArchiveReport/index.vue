@@ -1,8 +1,9 @@
 <template>
+  <!-- 监测设备档案报表 -->
   <div class="w-full h-full px-4 py-4">
     <!--  搜索区域  -->
-    <div class="h-[10%] w-full bg-white flex justify-start items-center px-4 py-4">
-      <div class="w-4/5">
+    <div class="h-auto w-full bg-white flex justify-between items-center px-4 py-4">
+      <div class="w-auto h-full">
         <a-form layout="inline" :model="formState">
           <a-form-item>
             <a-select
@@ -43,7 +44,7 @@
           </a-form-item>
         </a-form>
       </div>
-      <div class="w-1/5 flex justify-end items-center">
+      <div class="flex justify-end items-center">
         <a-button type="primary" @click="aoaToExcel">导出EXCEL</a-button>
       </div>
     </div>

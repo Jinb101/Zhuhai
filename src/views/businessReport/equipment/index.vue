@@ -1,7 +1,8 @@
 <template>
+  <!-- 监测设备档案报表 -->
   <div class="w-full h-full px-4 py-4">
     <div class="h-auto w-full bg-white flex justify-between items-center px-4 py-4">
-      <div class="w-auto">
+      <div class="w-full h-full">
         <a-form layout="inline" :model="formState">
           <a-form-item>
             <a-select v-model:value="formState.region" placeholder="区域" style="width: 8rem">
@@ -10,7 +11,6 @@
               <a-select-option value="3">二级表</a-select-option>
             </a-select>
           </a-form-item>
-
           <a-form-item>
             <a-date-picker
               v-model:value="formState.createTime"
@@ -43,7 +43,7 @@
     <div class="w-full mt-4">
       <a-table
         :scroll="{ x: 1100 }"
-        :rowKey="(__record, _index) => __record.key"
+        :rowKey="(record, _index) => record.key"
         class="h-full w-full"
         :columns="columns"
         :data-source="dataSource"
@@ -171,6 +171,7 @@
 
     if (keyword === '') {
       // 如果关键字为空，则重置数据源
+      resetForm();
       return;
     }
     showResetButton.value = false;
@@ -190,16 +191,14 @@
     formState.crux = '';
     dataSource.value = data;
   };
-  const arrHeader = columns.map((column) => {
-    if (column.dataIndex != 'operation') {
-      return column.title;
-    }
-  });
+
   const exportFile = () => {
     const arrData = dataSource.value.map((item) => {
-      return Object.keys(item).map((key) => item[key]);
+      return Object.values(item);
     });
-    // 保证data顺序与header一致
+
+    const arrHeader = columns.map((column) => column.title);
+
     aoaToSheetXlsx({
       data: arrData,
       header: arrHeader,

@@ -20,4 +20,10 @@
   useTitle();
 </script>
 
-<style></style>
+<style>
+  @media screen and (max-width: 900px) {
+    .ant-form-inline .ant-form-item {
+      margin-bottom: 10px !important;
+    }
+  }
+</style>
