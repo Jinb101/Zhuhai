@@ -9,6 +9,7 @@ const dashboardRoute = {
   component: 'LAYOUT',
   redirect: '/dashboard/analysis',
   meta: {
+    hideMenu: true,
     title: 'routes.dashboard.dashboard',
     hideChildrenInMenu: true,
     icon: 'bx:bx-home',
@@ -47,7 +48,6 @@ const backRoute = {
   meta: {
     title: 'routes.demo.permission.back',
   },
-
   children: [
     {
       path: 'page',
@@ -74,6 +74,7 @@ const authRoute = {
   component: 'LAYOUT',
   redirect: '/permission/front/page',
   meta: {
+
     icon: 'carbon:user-role',
     title: 'routes.demo.permission.permission',
   },
@@ -267,4 +268,4 @@ export default [
       return resultSuccess(menu);
     },
   },
-] as MockMethod[];
+] as unknown as MockMethod[];

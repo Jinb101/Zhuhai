@@ -1,19 +1,20 @@
 <template>
+  <!-- 气体监测情况报表 -->
   <div class="w-full h-full px-4 py-4">
     <!--  搜索区域  -->
-    <div class="h-[10%] w-full bg-white flex justify-start items-center px-4">
+    <div class="h-auto w-full bg-white flex justify-between items-center px-4 py-4">
       <div class="w-4/5">
         <a-form layout="inline" :model="formState">
           <a-form-item>
             <a-select v-model:value="formState.region" placeholder="区域信息" style="width: 8rem">
-              <a-select-option :value="item" v-for="item in workshopList">{{
+              <a-select-option :value="item" v-for="item in workshopList" :key="item">{{
                 item
               }}</a-select-option>
             </a-select>
           </a-form-item>
           <a-form-item>
             <a-select v-model:value="formState.gasType" placeholder="气体类型" style="width: 8rem">
-              <a-select-option :value="item" v-for="item in gasTypeList">{{
+              <a-select-option :value="item" v-for="item in gasTypeList" :key="item">{{
                 item
               }}</a-select-option>
             </a-select>
@@ -184,7 +185,7 @@
             dataSource.value.push(data[i]);
           }
         }
-        showResetButton.value = false
+        showResetButton.value = false;
         dealNo();
       }
       /**
@@ -201,7 +202,7 @@
         for (let i = 0; i < data.length; i++) {
           dataSource.value.push(data[i]);
         }
-        showResetButton.value = true
+        showResetButton.value = true;
         dealNo();
       }
 
@@ -230,7 +231,7 @@
         workshopList,
         check,
         aoaToExcel,
-        showResetButton
+        showResetButton,
       };
     },
   });

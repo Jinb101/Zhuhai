@@ -9,6 +9,7 @@ const workloadReporting: AppRouteModule = {
   component: LAYOUT,
   redirect: '/workload/workloadReporting',
   meta: {
+    hideMenu: true,
     orderNo: 12,
     icon: 'ant-design:form-outlined',
     title: t('routes.demo.workload.workloadReporting'),
