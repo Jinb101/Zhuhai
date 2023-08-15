@@ -21,8 +21,8 @@
     </div>
     <div class="w-4/5 h-full ml-4">
       <!-- seach -->
-      <div class="h-[10%] w-full bg-white px-4 py-4 flex justify-start items-center flex-wrap">
-        <div class="w-2/3">
+      <div class="h-[10%] w-full bg-white px-4 py-4 flex justify-between items-center flex-wrap">
+        <div class="w-auto">
           <a-form layout="inline" :model="formState">
             <a-form-item>
               <a-select v-model:value="formState.alarm" placeholder="全部" style="width: 8rem">
@@ -30,7 +30,7 @@
               </a-select>
             </a-form-item>
             <a-form-item>
-              <a-select v-model:value="formState.flow" placeholder="全部" style="width: 8rem">
+              <a-select v-model:value="formState.flow" placeholder="状态" style="width: 8rem">
                 <a-select-option value="1">未处理</a-select-option>
                 <a-select-option value="2">处理中</a-select-option>
                 <a-select-option value="3">已处理</a-select-option>
@@ -45,7 +45,7 @@
             </a-form-item>
           </a-form>
         </div>
-        <div class="w-1/3 flex justify-end items-center flex-wrap">
+        <div class="w-auto flex justify-end items-center flex-wrap">
           <a-button :disabled="!hasSelected" type="primary" danger>关闭警报</a-button>
           <a-button :disabled="!hasSelected" type="primary" class="ml-1" danger>确认警告</a-button>
           <a-button :disabled="!hasSelected" type="primary" class="ml-1" danger>发起流程</a-button>
@@ -111,8 +111,8 @@
   ];
 
   const formState = reactive({
-    alarm: '',
-    flow: '',
+    alarm: undefined,
+    flow: undefined,
     crux: '',
   });
 

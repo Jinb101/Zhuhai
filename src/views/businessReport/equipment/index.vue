@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full px-4 py-4">
-    <div class="h-[10%] w-full bg-white flex justify-start items-center px-4">
+    <div class="h-[10%] w-full bg-white flex justify-start items-center px-4 py-4">
       <div class="w-4/5">
         <a-form layout="inline" :model="formState">
           <a-form-item>
@@ -42,6 +42,7 @@
     </div>
     <div class="w-full mt-4">
       <a-table
+        :scroll="{ x: 1100 }"
         :rowKey="(__record, _index) => __record.key"
         class="h-full w-full"
         :columns="columns"
@@ -159,7 +160,7 @@
 
   // form
   const formState: UnwrapRef<FormState> = reactive({
-    region: '设备类型',
+    region: undefined,
     createTime: undefined,
     endTime: undefined,
     crux: '',

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full px-4 py-4">
-    <div class="h-[10%] w-full bg-white flex justify-start items-center px-4">
-      <div class="w-4/5">
+    <div class="h-auto w-full bg-white flex justify-start items-center px-4 py-4">
+      <div class="w-4/5 h-full">
         <a-form layout="inline" :model="formState">
           <a-form-item>
             <a-select v-model:value="formState.region" placeholder="区域" style="width: 8rem">
@@ -46,6 +46,7 @@
         class="h-full w-full"
         :columns="columns"
         :data-source="dataSource"
+        :scroll="{ x: 1100 }"
         bordered
       >
         <template
@@ -289,7 +290,7 @@
   };
   // form
   const formState: UnwrapRef<FormState> = reactive({
-    region: '区域',
+    region: undefined,
     createTime: undefined,
     endTime: undefined,
     crux: '',

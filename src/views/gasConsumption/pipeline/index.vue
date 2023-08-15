@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full h-full px-4 py-4">
-    <div class="h-[10%] w-full flex bg-white justify-start items-center px-4">
+  <div class="w-full h-full px-4 py-4 flex flex-col">
+    <div class="h-[10%] w-full flex bg-white justify-start items-center px-4 py-4">
       <a-form layout="inline" :model="formState">
-        <a-form-item>
+        <a-form-item name="region">
           <a-select v-model:value="formState.region" placeholder="区域" style="width: 8rem">
             <a-select-option value="1">区域1</a-select-option>
             <a-select-option value="2">区域2</a-select-option>
@@ -20,6 +20,7 @@
     </div>
     <div class="table-container w-full mt-4">
       <a-table
+        :scroll="{ x: 1000 }"
         :rowKey="(__record, index) => index"
         class="h-full w-full"
         :columns="columns"
@@ -55,7 +56,6 @@
       dataIndex: 'pathName',
       key: 'pathName',
       align: 'center',
-      width: '10%',
       slots: { customRender: 'pathName' },
     },
     {
@@ -168,7 +168,7 @@
   const showResetButton = ref<boolean>(true);
 
   const formState: UnwrapRef<FormState> = reactive({
-    region: '区域',
+    region: undefined,
     crux: '',
   });
 

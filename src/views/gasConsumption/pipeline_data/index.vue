@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full px-4 py-4">
-    <div class="min-h-[6rem] w-full bg-white flex justify-start items-center px-4">
+    <div class="min-h-[6rem] w-full bg-white flex justify-start items-center px-4 py-4">
       <div class="w-full">
         <a-form layout="inline" :model="formState">
           <a-form-item>
@@ -47,6 +47,7 @@
     </div>
     <div class="w-full mt-4">
       <a-table
+        :scroll="{ x: 1100 }"
         :rowKey="(__record, _index) => __record.pointNumber"
         class="h-full w-full"
         :columns="columns"
@@ -167,8 +168,8 @@
 
   // form
   const formState: UnwrapRef<FormState> = reactive({
-    region: '区域',
-    gas_type: '',
+    region: undefined,
+    gas_type: undefined,
     createTime: undefined,
     endTime: undefined,
     crux: '',

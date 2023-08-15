@@ -3,6 +3,7 @@
     <!--  table区域  -->
     <div class="w-full mt-4">
       <a-table
+        :scroll="{ x: 1100 }"
         class="h-full w-full"
         :columns="columns"
         :data-source="dataSource"
@@ -12,10 +13,11 @@
         :expandedRowKeys="[expandNum]"
         @expand="expand"
       >
-        <template #expandedRowRender="{ record }">
+        <template #expandedRowRender="">
           <a-row :gutter="16">
             <a-col :span="8">
               <a-table
+                :scroll="{ x: 1100 }"
                 class="h-full w-full"
                 :columns="columns1"
                 :data-source="dataList1"
@@ -28,6 +30,7 @@
             <a-col :span="8">
               <div style="width: 90%; padding-left: 10%">
                 <a-table
+                  :scroll="{ x: 1100 }"
                   class="h-full w-full"
                   :columns="columns2"
                   :data-source="dataList2"
@@ -40,6 +43,7 @@
             </a-col>
             <a-col :span="8">
               <a-table
+                :scroll="{ x: 1100 }"
                 class="h-full w-full"
                 :columns="columns3"
                 :data-source="dataList3"

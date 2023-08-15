@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full px-4 py-4">
-    <div class="min-h-[6rem] w-full bg-white flex justify-start items-center px-4">
+    <div class="min-h-[6rem] w-full bg-white flex justify-start items-center px-4 py-4">
       <div class="w-full">
         <a-form layout="inline" :model="formState">
           <!-- 储罐类型选择 -->
@@ -63,6 +63,7 @@
         :columns="columns"
         :data-source="dataSource"
         bordered
+        :scroll="{ x: 1100 }"
       />
     </div>
   </div>
@@ -179,8 +180,8 @@
 
   // form
   const formState: UnwrapRef<FormState> = reactive({
-    tank_type: '储罐类型',
-    message_type: '',
+    tank_type: undefined,
+    message_type: undefined,
     createTime: undefined,
     endTime: undefined,
     crux: '',

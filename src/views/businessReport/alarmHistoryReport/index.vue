@@ -1,12 +1,12 @@
 <template>
   <div class="w-full h-full px-4 py-4">
     <!--  搜索区域  -->
-    <div class="h-[10%] w-full bg-white flex justify-start items-center px-4">
+    <div class="h-[10%] w-full bg-white flex justify-start items-center px-4 py-4">
       <div class="w-4/5">
         <a-form layout="inline" :model="formState">
           <a-form-item>
             <a-select v-model:value="formState.gasType" placeholder="气体类型" style="width: 8rem">
-              <a-select-option :value="item" v-for="item in gasTypeList">{{
+              <a-select-option :value="item" v-for="item in gasTypeList" :key="item">{{
                 item
               }}</a-select-option>
             </a-select>
@@ -45,7 +45,13 @@
     </div>
     <!--  table区域  -->
     <div class="w-full mt-4">
-      <a-table class="h-full w-full" :columns="columns" :data-source="dataSource" bordered />
+      <a-table
+        :scroll="{ x: 1100 }"
+        class="h-full w-full"
+        :columns="columns"
+        :data-source="dataSource"
+        bordered
+      />
     </div>
   </div>
 </template>
