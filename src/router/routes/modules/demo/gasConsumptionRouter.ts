@@ -16,7 +16,7 @@ const gasConsumptionRoute: AppRouteModule = {
     {
       path: 'monitoring_equipment',
       name: 'monitoring_equipment',
-      component: () => import('/@/views/demo/gasConsumption/monitoring/index.vue'),
+      component: () => import('/@/views/gasConsumption/monitoring/index.vue'),
       meta: {
         title: t('routes.demo.gasConsumption.monitoringEquipment'),
       },
@@ -24,7 +24,7 @@ const gasConsumptionRoute: AppRouteModule = {
     {
       path: 'pipeline_summary',
       name: 'pipeline_summary',
-      component: () => import('/@/views/demo/gasConsumption/pipeline/index.vue'),
+      component: () => import('/@/views/gasConsumption/pipeline/index.vue'),
       meta: {
         title: t('routes.demo.gasConsumption.pipelineSummary'),
       },
@@ -32,7 +32,7 @@ const gasConsumptionRoute: AppRouteModule = {
     {
       path: 'pipeline_data',
       name: 'pipeline_data',
-      component: () => import('/@/views/demo/gasConsumption/pipeline_data/index.vue'),
+      component: () => import('/@/views/gasConsumption/pipeline_data/index.vue'),
       meta: {
         title: t('routes.demo.gasConsumption.pipelineData'),
       },
@@ -40,7 +40,7 @@ const gasConsumptionRoute: AppRouteModule = {
     {
       path: 'tank_data',
       name: 'tank_data',
-      component: () => import('/@/views/demo/gasConsumption/tank_data/index.vue'),
+      component: () => import('/@/views/gasConsumption/tank_data/index.vue'),
       meta: {
         title: t('routes.demo.gasConsumption.tankData'),
       },
@@ -48,7 +48,7 @@ const gasConsumptionRoute: AppRouteModule = {
     {
       path: 'monitoring_alarm',
       name: 'monitoring_alarm',
-      component: () => import('/@/views/demo/gasConsumption/monitoring_alarm/index.vue'),
+      component: () => import('/@/views/gasConsumption/monitoring_alarm/index.vue'),
       meta: {
         title: t('routes.demo.gasConsumption.monitoringAlarm'),
       },

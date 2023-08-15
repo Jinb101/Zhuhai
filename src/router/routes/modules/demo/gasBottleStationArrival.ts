@@ -17,7 +17,7 @@ const gasBottleStationArrival: AppRouteModule = {
     {
       path: 'received_gasBottle',
       name: 'received_gasBottle',
-      component: () => import('/@/views/demo/gasBottleStationArrival/received/index.vue'),
+      component: () => import('/@/views/gasBottleStationArrival/received/index.vue'),
       meta: {
         title: t('routes.demo.gasBottleStationArrival.received'),
       },
@@ -25,7 +25,7 @@ const gasBottleStationArrival: AppRouteModule = {
     {
       path: 'storage_gasBottle',
       name: 'storage_gasBottle',
-      component: () => import('/@/views/demo/gasBottleStationArrival/storage/index.vue'),
+      component: () => import('/@/views/gasBottleStationArrival/storage/index.vue'),
       meta: {
         title: t('routes.demo.gasBottleStationArrival.storage'),
       },
@@ -33,7 +33,7 @@ const gasBottleStationArrival: AppRouteModule = {
     {
       path: 'specification_gasBottle',
       name: 'specification_gasBottle',
-      component: () => import('/@/views/demo/gasBottleStationArrival/specification/index.vue'),
+      component: () => import('/@/views/gasBottleStationArrival/specification/index.vue'),
       meta: {
         title: t('routes.demo.gasBottleStationArrival.specification'),
       },

@@ -35,6 +35,12 @@
             <a-button @click="resetForm" v-show="!showResetButton">重置</a-button>
           </a-form-item>
         </a-form>
+        <BasicForm
+          :labelWidth="100"
+          :schemas="schemas"
+          :actionColOptions="{ span: 24 }"
+          @submit="handleSubmit"
+        />
       </div>
       <div class="w-1/5 flex justify-end items-center">
         <a-button type="primary" @click="showModal">新增</a-button>
@@ -160,6 +166,8 @@
   import { cloneDeep } from 'lodash-es';
   import { Moment } from 'moment';
   import { reactive, toRaw, ref, UnwrapRef, watch } from 'vue';
+  import { FormSchema } from '/@/components/Form/src/types/form';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   interface DataItem {
     key: string;
@@ -187,7 +195,7 @@
     equipmentArea: string;
     insite: string;
   }
-
+  const { createMessage } = useMessage();
   const columns = [
     {
       title: '编号',
@@ -256,6 +264,23 @@
       width: '15%',
       dataIndex: 'operation',
       slots: { customRender: 'operation' },
+    },
+  ];
+  const schemas: FormSchema[] = [
+    {
+      field: 'field',
+      component: 'Input',
+      label: '字段1',
+      colProps: {
+        span: 8,
+      },
+      defaultValue: '1',
+      componentProps: {
+        placeholder: '自定义placeholder',
+        onChange: (e) => {
+          console.log(e);
+        },
+      },
     },
   ];
 
@@ -334,6 +359,9 @@
         value.toString().toLowerCase().includes(keyword.toLowerCase()),
       ),
     );
+  };
+  const handleSubmit = (values: any) => {
+    createMessage.success('click search,values:' + JSON.stringify(values));
   };
 
   const addItem = () => {

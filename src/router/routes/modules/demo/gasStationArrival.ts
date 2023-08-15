@@ -17,7 +17,7 @@ const gasStationArrival: AppRouteModule = {
     {
       path: 'acceptance_gas',
       name: 'acceptance_gas',
-      component: () => import('/@/views/demo/gasStationArrival/acceptance/index.vue'),
+      component: () => import('/@/views/gasStationArrival/acceptance/index.vue'),
       meta: {
         title: t('routes.demo.gasStationArrival.acceptance'),
       },
@@ -25,7 +25,7 @@ const gasStationArrival: AppRouteModule = {
     {
       path: 'personnel_gas',
       name: 'personnel_gas',
-      component: () => import('/@/views/demo/gasStationArrival/personnel/index.vue'),
+      component: () => import('/@/views/gasStationArrival/personnel/index.vue'),
       meta: {
         title: t('routes.demo.gasStationArrival.personnel'),
       },
@@ -33,7 +33,7 @@ const gasStationArrival: AppRouteModule = {
     {
       path: 'supplier_gas',
       name: 'supplier_gas',
-      component: () => import('/@/views/demo/gasStationArrival/supplier/index.vue'),
+      component: () => import('/@/views/gasStationArrival/supplier/index.vue'),
       meta: {
         title: t('routes.demo.gasStationArrival.supplier'),
       },
@@ -41,7 +41,7 @@ const gasStationArrival: AppRouteModule = {
     {
       path: 'weighbridge',
       name: 'weighbridge',
-      component: () => import('/@/views/demo/gasStationArrival/weighbridge/index.vue'),
+      component: () => import('/@/views/gasStationArrival/weighbridge/index.vue'),
       meta: {
         title: t('routes.demo.gasStationArrival.weighbridge'),
       },

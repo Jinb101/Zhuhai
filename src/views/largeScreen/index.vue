@@ -4,7 +4,7 @@
       <div class="w-[8%]"></div>
       <div class="grow w-auto h-full">
         <img
-          src="../../../assets/images/large//logo.png"
+          src="../../assets/images/large/logo.png"
           alt=""
           srcset=""
           style="height: 100%; width: 100%"
@@ -37,18 +37,13 @@
               <!-- <div class="w-[20%] pl-2 text_gradient">三维模型</div> -->
               <img
                 @click="openModol"
-                src="../../../assets/images/large/big.png "
+                src="../../assets/images/large/big.png "
                 alt=""
                 srcset=""
                 class="h-8 cursor-pointer"
               />
             </div>
-            <img
-              src="../../../assets/images/large/map.png"
-              alt=""
-              srcset=""
-              class="h-full w-full"
-            />
+            <img src="../../assets/images/large/map.png" alt="" srcset="" class="h-full w-full" />
           </div>
         </div>
         <!-- h-r -->
@@ -150,7 +145,7 @@
   .lare {
     height: 100vh !important;
     width: 100% !important;
-    background-image: url('../../../assets/images/large/bg.png') !important;
+    background-image: url('../../assets/images/large/bg.png') !important;
     background-size: 100% 100% !important;
     color: white !important;
   }

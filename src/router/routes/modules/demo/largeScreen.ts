@@ -18,7 +18,7 @@ const largeScreen: AppRouteModule = {
     {
       path: 'larg_screen',
       name: 'larg_screen',
-      component: () => import('/@/views/demo/largeScreen/index.vue'),
+      component: () => import('/@/views/largeScreen/index.vue'),
       meta: {
         title: t('routes.demo.largeScreen.visualizationLargeScreen'),
       },

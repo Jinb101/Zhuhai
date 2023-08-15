@@ -207,7 +207,7 @@
             dataSource.value.push(data[i]);
           }
         }
-        showResetButton.value = false
+        showResetButton.value = false;
         dealNo();
       }
       /**
@@ -223,7 +223,7 @@
         for (let i = 0; i < data.length; i++) {
           dataSource.value.push(data[i]);
         }
-        showResetButton.value = true
+        showResetButton.value = true;
         dealNo();
       }
 
@@ -251,7 +251,7 @@
         gasTypeList,
         check,
         aoaToExcel,
-        showResetButton
+        showResetButton,
       };
     },
   });

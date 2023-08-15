@@ -77,28 +77,40 @@
         return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
       });
     } else if (selectedButton === 'monthly') {
-      const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-      const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-      const daysInMonth = lastDayOfMonth.getDate();
-      const days = Math.min(daysInMonth, 7);
+      const today = new Date();
+      // const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      const daysInPreviousMonth = lastDayOfPreviousMonth.getDate();
+      const days = Math.min(daysInPreviousMonth, 7);
       const xAxisData = Array.from({ length: days }, (_, index) => {
-        const date = new Date(firstDayOfMonth.getTime() + index * 24 * 60 * 60 * 1000);
+        const date = new Date(
+          lastDayOfPreviousMonth.getTime() - (days - 1 - index) * 24 * 60 * 60 * 1000,
+        );
         return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
       });
-      chartOption.series[0].data = monthlyData.slice(0, days);
-      chartOption.series[1].data = monthlyData.slice(0, days);
-      chartOption.series[2].data = monthlyData.slice(0, days);
-      chartOption.series[3].data = monthlyData.slice(0, days);
-      chartOption.series[4].data = monthlyData.slice(0, days);
-      chartOption.xAxis[0].data = xAxisData;
+      if (today.getDate() >= 2) {
+        chartOption.series[0].data = monthlyData.slice(0, today.getDate() - 1);
+        chartOption.series[1].data = monthlyData.slice(0, today.getDate() - 1);
+        chartOption.series[2].data = monthlyData.slice(0, today.getDate() - 1);
+        chartOption.series[3].data = monthlyData.slice(0, today.getDate() - 1);
+        chartOption.series[4].data = monthlyData.slice(0, today.getDate() - 1);
+        chartOption.xAxis[0].data = xAxisData.slice(0, today.getDate() - 1);
+      } else {
+        chartOption.series[0].data = monthlyData.slice(0, days);
+        chartOption.series[1].data = monthlyData.slice(0, days);
+        chartOption.series[2].data = monthlyData.slice(0, days);
+        chartOption.series[3].data = monthlyData.slice(0, days);
+        chartOption.series[4].data = monthlyData.slice(0, days);
+        chartOption.xAxis[0].data = xAxisData;
+      }
     } else if (selectedButton === 'annual') {
-      chartOption.series[0].data = annualData;
-      chartOption.series[1].data = annualData;
-      chartOption.series[2].data = annualData;
-      chartOption.series[3].data = annualData;
-      chartOption.series[4].data = annualData;
       const currentYear = new Date().getFullYear();
-      const years = Array.from({ length: 6 }, (_, index) => currentYear - 5 + index);
+      const years = Array.from({ length: 7 }, (_, index) => currentYear - 7 + index);
+      chartOption.series[0].data = annualData.slice(annualData.length - 7);
+      chartOption.series[1].data = annualData.slice(annualData.length - 7);
+      chartOption.series[2].data = annualData.slice(annualData.length - 7);
+      chartOption.series[3].data = annualData.slice(annualData.length - 7);
+      chartOption.series[4].data = annualData.slice(annualData.length - 7);
       chartOption.xAxis[0].data = years;
     }
 

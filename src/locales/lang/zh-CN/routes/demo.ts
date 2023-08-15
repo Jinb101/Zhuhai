@@ -20,7 +20,7 @@ export default {
     weighbridge: '地磅检测管理',
   },
   largeScreen: {
-    visualizationLargeScreen: '3维大屏',
+    visualizationLargeScreen: '3D地图',
   },
   gasBottleStationArrival: {
     manage: '气瓶到货验收管理',

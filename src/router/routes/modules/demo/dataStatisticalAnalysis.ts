@@ -25,7 +25,8 @@ const dataStatisticalAnalysis: AppRouteModule = {
     {
       path: 'secondaryTableStatistics',
       name: 'secondaryTableStatistics',
-      component: () => import('/@/views/dataStatisticalAnalysis/secondaryTableStatistics/index.vue'),
+      component: () =>
+        import('/@/views/dataStatisticalAnalysis/secondaryTableStatistics/index.vue'),
       meta: {
         title: t('routes.demo.dataStatisticalAnalysis.secondaryTableStatistics'),
       },
